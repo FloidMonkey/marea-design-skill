@@ -1,0 +1,89 @@
+/* Marea — design tokens / tokens de diseño
+ *
+ * Drop this in before your component CSS. Every value is from a production
+ * build; the comments say what each one is FOR, which matters more than the
+ * value when you swap the palette for a different brand.
+ *
+ * Pégalo antes de tu CSS de componentes. Los comentarios dicen para qué sirve
+ * cada token, que importa más que el valor cuando cambies de marca.
+ */
+
+:root {
+  /* Reinforces <meta name="color-scheme">: some browsers only honour the
+     light-only signal if it is also declared in CSS. */
+  color-scheme: light;
+
+  /* --- Colour -------------------------------------------------------------
+     Two greens on purpose. `primary` is the brand green: headings, icons,
+     filled strips. `primary-dark` is barely darker and bluer, for LARGE
+     surfaces (waves, card footers, header) where the brand green goes acid at
+     full size. The difference should be felt, not seen. */
+  --color-primary:      #005C2F;
+  --color-primary-dark: #065B28;
+
+  /* The single accent. Three appearances per page is already a lot. The moment
+     it lands on a secondary button it stops meaning "read this". */
+  --color-accent:       #FFE100;
+
+  /* The cream ground is STRUCTURAL, not decorative: white cards read as objects
+     ON it. Replace it with white and the whole system goes flat. */
+  --color-bg:           #F5F4E5;
+  --color-bg-solid:     #FFFFFF;   /* inside cards only */
+  --color-bg-alt:       #DDE6D9;   /* alternating section ground */
+  --color-bg-alt-2:     #C7DACE;   /* third level — once per site at most */
+
+  --color-text:         #1C2420;
+  --color-text-muted:   #4A554F;
+  --color-error:        #B3261E;
+  --color-ok:           #005C29;
+
+  /* --- Type ---------------------------------------------------------------
+     One neutral grotesque for everything structural. It does not have to be
+     Inter, but it DOES need a real 800 — synthetic bold is obvious on cream. */
+  --font-headline: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --font-body:     'Inter', 'Segoe UI', Arial, sans-serif;
+
+  /* The signature. Used ONLY for slogans riding a wave. The moment it appears
+     in a heading the effect dies. */
+  --font-cursiva:  'Aesthetic Moment Italic', cursive;
+
+  /* An optional third face for product/packaging typography, when the packshots
+     use something different from the site. Keep it rare and deliberate. */
+  --font-marca:    Arial, 'Segoe UI', sans-serif;
+
+  /* --- Form ---------------------------------------------------------------
+     8px is for small elements. Large cards go much rounder (1.5rem, or a cqw
+     value taken from the vector). A 4px radius on this cream looks like a bug. */
+  --radius: 8px;
+
+  /* Deliberately weak, and GREEN-tinted — a grey shadow looks dirty on cream. */
+  --shadow: 0 2px 12px rgba(0, 65, 25, .10);
+
+  /* Heavier, neutral shadow for cut-out figures standing on a wave. */
+  --shadow-figura: drop-shadow(0 10px 12px rgba(0, 0, 0, .25));
+
+  --container: 1200px;
+
+  /* Header height drives the hero's negative margin. Keep it a variable: the
+     hero pulls up by exactly this, and a hardcoded copy will drift. */
+  --header-h: 88px;
+}
+
+/* On wide screens the header is a full-bleed vector banner, so its height comes
+   from the artwork's own proportion rather than a fixed pixel value. */
+@media (min-width: 1024px) {
+  :root { --header-h: calc(100vw * 206.59 / 1923.58); }
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+/* Fluid type. Never fixed sizes per breakpoint: when the container is measured
+   in vw or cqw, the text must scale the same way or the proportion breaks at
+   the in-between widths — which is where the damage always is. */
+h1 { font-family: var(--font-headline); font-weight: 800; font-size: clamp(1.9rem, 5vw, 3.4rem); line-height: 1.08; }
+h2 { font-family: var(--font-headline); font-weight: 800; font-size: clamp(1.5rem, 3.4vw, 2.4rem); line-height: 1.15; }
+h3 { font-family: var(--font-headline); font-weight: 700; font-size: clamp(1.1rem, 1.8vw, 1.4rem); }
